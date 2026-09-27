@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://localhost/portfolio/ -->
+<html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Portfolio — M.Fathirman</title>
+    <meta name="description" content="Full Stack Developer &amp; UI/UX Designer dari Mataram, NTB">
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;%F0%9F%92%BB&lt;/text&gt;&lt;/svg&gt;">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Portfolio — M.Fathirman_files/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./Portfolio — M.Fathirman_files/style.css">
+    <link rel="stylesheet" href="./Portfolio — M.Fathirman_files/admin.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader" class="done">
+    <div class="loader-logo">MF.</div>
+    <div class="loader-bar"><div class="loader-fill" style="width: 100%;"></div></div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor-dot" style="left: 549px; top: 591px;"></div>
+<div class="cursor-ring" style="left: 548.996px; top: 590.99px;"></div>
+
+<!-- PARTICLES -->
+<canvas id="particle-canvas" width="1280" height="593"></canvas>
+
+<!-- INPUT FOTO TERSEMBUNYI -->
+<input type="file" id="foto-input" accept="image/*" style="display:none">
+
+<!-- ====================================================
+     ADMIN NAV BAR (muncul saat login)
+===================================================== -->
+<div id="admin-nav-bar" class="admin-nav-bar">
+    <span class="admin-label">⚙️ Mode Admin</span>
+    <div id="admin-user-chip" class="admin-user-chip"></div>
+    <div class="admin-nav-actions">
+        <button class="admin-nav-btn primary" id="btn-add-skill">
+            ✨ <span class="label-text">Skill</span>
+        </button>
+        <button class="admin-nav-btn primary" id="btn-add-proyek">
+            🚀 <span class="label-text">Proyek</span>
+        </button>
+        <button class="admin-nav-btn primary" id="btn-add-kegiatan">
+            📅 <span class="label-text">Kegiatan</span>
+        </button>
+        <button class="admin-nav-btn primary" id="btn-add-pengalaman">
+            💼 <span class="label-text">Pengalaman</span>
+        </button>
+        <button class="admin-nav-btn danger" id="btn-logout">
+            🔓 <span class="label-text">Logout</span>
+        </button>
+    </div>
+</div>
+
+<!-- ====================================================
+     NAV
+===================================================== -->
+<nav class="nav">
+    <a href="http://localhost/portfolio/#hero" class="nav-logo">AR.</a>
+    <ul class="nav-links">
+        <li><a href="http://localhost/portfolio/#about">Tentang</a></li>
+        <li><a href="http://localhost/portfolio/#skills">Keahlian</a></li>
+        <li><a href="http://localhost/portfolio/#projects">Proyek</a></li>
+        <li><a href="http://localhost/portfolio/#experience">Pengalaman</a></li>
+        <li><a href="http://localhost/portfolio/#kegiatan">Kegiatan</a></li>
+        <li><a href="http://localhost/portfolio/#contact">Kontak</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:.7rem">
+        <button id="btn-login" class="btn btn-outline" style="padding:.45rem 1rem;border-radius:8px;font-size:.82rem">
+            🔐 Login Admin
+        </button>
+        <button class="nav-burger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ====================================================
+     HERO
+===================================================== -->
+<section id="hero" class="hero">
+    <div class="hero-bg-glow g1"></div>
+    <div class="hero-bg-glow g2"></div>
+    <div class="hero-inner">
+        <div class="hero-text">
+            <div class="hero-eyebrow">
+                <span></span> Tersedia untuk proyek baru
+            </div>
+            <h1 class="hero-name">
+                Halo, Saya<br>
+                <span class="highlight" id="hero-name-text">M.Fathirman</span>
+            </h1>
+            <p class="hero-role"><span id="typing-text">Full Stack Developer</span><span style="color:var(--accent);animation:blink 1s infinite">|</span></p>
+            <p class="hero-desc" id="hero-bio">Saya seorang developer dengan passion di web development dan desain antarmuka. Berpengalaman membangun aplikasi web modern yang berfokus pada performa dan pengalaman pengguna.</p>
+            <div class="hero-actions">
+                <a href="http://localhost/portfolio/#projects" class="btn btn-primary">🚀 Lihat Proyek</a>
+                <a href="http://localhost/portfolio/#contact" class="btn btn-outline">💬 Hubungi Saya</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <strong data-target="4" data-suffix="+">0+</strong>
+                    <span>Tahun Pengalaman</span>
+                </div>
+                <div class="hero-stat">
+                    <strong data-target="30" data-suffix="+">0+</strong>
+                    <span>Proyek Selesai</span>
+                </div>
+                <div class="hero-stat">
+                    <strong data-target="20" data-suffix="+">0+</strong>
+                    <span>Klien Puas</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-avatar-wrap">
+            <div class="hero-avatar-ring">
+                <!-- Avatar + overlay upload foto (hanya tampil saat admin hover) -->
+                <div class="hero-avatar" style="position:relative;overflow:hidden;cursor:pointer" onclick="if(document.body.classList.contains('admin-mode')) document.getElementById('foto-input').click()">
+                    <span id="avatar-emoji">👨‍💻</span>
+                    <div class="foto-upload-overlay">
+                        <span style="font-size:1.5rem">📷</span>
+                        <span>Ganti Foto</span>
+                    </div>
+                <img src="./Portfolio — M.Fathirman_files/profil_1790487894.png" alt="Foto Profil" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; position: absolute; top: 0px; left: 0px;"></div>
+            </div>
+            <div class="floating-badge b1">⚡ Network Expert</div>
+            <div class="floating-badge b2">🎨 UI/UX Design</div>
+        </div>
+    </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====================================================
+     ABOUT
+===================================================== -->
+<section id="about" class="about">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <span class="section-tag">Tentang Saya</span>
+            <h2 class="section-title">Siapa <em>Saya</em> Sebenarnya?</h2>
+            <p class="section-desc">Developer yang gemar mengubah ide kompleks menjadi produk digital yang elegan</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-img-wrap reveal">
+                <div class="about-img" style="position: relative;"><span id="about-emoji">👨‍💻</span><img src="./Portfolio — M.Fathirman_files/profil_1790487894.png" alt="Foto" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0px; left: 0px; border-radius: var(--radius);"></div>
+                <div class="about-img-badge">
+                    <strong>4+</strong><span>Tahun<br>Pengalaman</span>
+                </div>
+            </div>
+            <div class="about-content reveal">
+                <p class="about-text" id="about-bio">Saya seorang developer dengan passion di web development dan desain antarmuka. Berpengalaman membangun aplikasi web modern yang berfokus pada performa dan pengalaman pengguna.</p>
+                <div class="about-info-grid">
+                    <div class="about-info-item">
+                        <span class="label">📧 Email</span>
+                        <span class="value" id="info-email">ahmad.rizky@email.com</span>
+                    </div>
+                    <div class="about-info-item">
+                        <span class="label">📱 Telepon</span>
+                        <span class="value" id="info-phone">+62 812-3456-7890</span>
+                    </div>
+                    <div class="about-info-item">
+                        <span class="label">📍 Lokasi</span>
+                        <span class="value" id="info-lokasi">Mataram, NTB, Indonesia</span>
+                    </div>
+                    <div class="about-info-item">
+                        <span class="label">✅ Status</span>
+                        <span class="value" style="color:#10b981">Tersedia</span>
+                    </div>
+                </div>
+                <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+                    <a href="https://github.com/ahmadrizky" class="btn btn-primary link-github">🐙 GitHub</a>
+                    <a href="https://linkedin.com/in/ahmadrizky" class="btn btn-outline link-linkedin">💼 LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====================================================
+     SKILLS
+===================================================== -->
+<section id="skills">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <span class="section-tag">Keahlian</span>
+            <h2 class="section-title">Stack &amp; <em>Teknologi</em></h2>
+            <p class="section-desc">Teknologi yang saya kuasai dan gunakan sehari-hari</p>
+        </div>
+        <div class="skills-filter">
+            <button class="filter-btn active" data-cat="all">Semua</button>
+            <button class="filter-btn" data-cat="frontend">Frontend</button>
+            <button class="filter-btn" data-cat="backend">Backend</button>
+            <button class="filter-btn" data-cat="database">Database</button>
+            <button class="filter-btn" data-cat="tools">Tools</button>
+        </div>
+        <div class="skills-grid" id="skills-grid"><div class="skill-card reveal" data-cat="frontend" style="animation-delay: 0s;">
+                <div class="skill-top">
+                    <span class="skill-name">HTML5 &amp; CSS3</span>
+                    <span class="skill-pct">95%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="95" style="background:linear-gradient(90deg,#e34c26,#ff8862)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(1,&quot;HTML5 &amp; CSS3&quot;,&quot;frontend&quot;,95,&quot;#e34c26&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(1,&quot;HTML5 &amp; CSS3&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="frontend" style="animation-delay: 0.05s;">
+                <div class="skill-top">
+                    <span class="skill-name">JavaScript ES6+</span>
+                    <span class="skill-pct">90%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="90" style="background:linear-gradient(90deg,#f7df1e,#ffff5a)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(2,&quot;JavaScript ES6+&quot;,&quot;frontend&quot;,90,&quot;#f7df1e&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(2,&quot;JavaScript ES6+&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="frontend" style="animation-delay: 0.1s;">
+                <div class="skill-top">
+                    <span class="skill-name">React.js</span>
+                    <span class="skill-pct">85%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="85" style="background:linear-gradient(90deg,#61dafb,#9dffff)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(3,&quot;React.js&quot;,&quot;frontend&quot;,85,&quot;#61dafb&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(3,&quot;React.js&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="frontend" style="animation-delay: 0.15s;">
+                <div class="skill-top">
+                    <span class="skill-name">Tailwind CSS</span>
+                    <span class="skill-pct">88%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="88" style="background:linear-gradient(90deg,#06b6d4,#42f2ff)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(4,&quot;Tailwind CSS&quot;,&quot;frontend&quot;,88,&quot;#06b6d4&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(4,&quot;Tailwind CSS&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="backend" style="animation-delay: 0.2s;">
+                <div class="skill-top">
+                    <span class="skill-name">PHP 8</span>
+                    <span class="skill-pct">88%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="88" style="background:linear-gradient(90deg,#777bb4,#b3b7f0)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(5,&quot;PHP 8&quot;,&quot;backend&quot;,88,&quot;#777bb4&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(5,&quot;PHP 8&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="backend" style="animation-delay: 0.25s;">
+                <div class="skill-top">
+                    <span class="skill-name">Laravel</span>
+                    <span class="skill-pct">82%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="82" style="background:linear-gradient(90deg,#ff2d20,#ff695c)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(6,&quot;Laravel&quot;,&quot;backend&quot;,82,&quot;#ff2d20&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(6,&quot;Laravel&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="backend" style="animation-delay: 0.3s;">
+                <div class="skill-top">
+                    <span class="skill-name">Node.js</span>
+                    <span class="skill-pct">75%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="75" style="background:linear-gradient(90deg,#339933,#6fd56f)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(7,&quot;Node.js&quot;,&quot;backend&quot;,75,&quot;#339933&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(7,&quot;Node.js&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="database" style="animation-delay: 0.35s;">
+                <div class="skill-top">
+                    <span class="skill-name">MySQL</span>
+                    <span class="skill-pct">85%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="85" style="background:linear-gradient(90deg,#4479a1,#80b5dd)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(8,&quot;MySQL&quot;,&quot;database&quot;,85,&quot;#4479a1&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(8,&quot;MySQL&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="database" style="animation-delay: 0.4s;">
+                <div class="skill-top">
+                    <span class="skill-name">PostgreSQL</span>
+                    <span class="skill-pct">70%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="70" style="background:linear-gradient(90deg,#336791,#6fa3cd)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(9,&quot;PostgreSQL&quot;,&quot;database&quot;,70,&quot;#336791&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(9,&quot;PostgreSQL&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="tools" style="animation-delay: 0.45s;">
+                <div class="skill-top">
+                    <span class="skill-name">Git &amp; GitHub</span>
+                    <span class="skill-pct">90%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="90" style="background:linear-gradient(90deg,#f05032,#ff8c6e)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(10,&quot;Git &amp; GitHub&quot;,&quot;tools&quot;,90,&quot;#f05032&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(10,&quot;Git &amp; GitHub&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="tools" style="animation-delay: 0.5s;">
+                <div class="skill-top">
+                    <span class="skill-name">Figma</span>
+                    <span class="skill-pct">80%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="80" style="background:linear-gradient(90deg,#f24e1e,#ff8a5a)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(11,&quot;Figma&quot;,&quot;tools&quot;,80,&quot;#f24e1e&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(11,&quot;Figma&quot;)">🗑️ Hapus</button>
+                </div></div><div class="skill-card reveal" data-cat="tools" style="animation-delay: 0.55s;">
+                <div class="skill-top">
+                    <span class="skill-name">Docker</span>
+                    <span class="skill-pct">65%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-pct="65" style="background:linear-gradient(90deg,#2496ed,#60d2ff)"></div>
+                </div>
+                <div class="admin-actions-inline">
+                    <button class="inline-btn edit-btn" onclick="editSkill(12,&quot;Docker&quot;,&quot;tools&quot;,65,&quot;#2496ed&quot;)">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteSkill(12,&quot;Docker&quot;)">🗑️ Hapus</button>
+                </div></div></div>
+    </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====================================================
+     PROJECTS
+===================================================== -->
+<section id="projects" class="projects">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <span class="section-tag">Portofolio</span>
+            <h2 class="section-title">Proyek <em>Pilihan</em></h2>
+            <p class="section-desc">Koleksi proyek yang pernah saya kerjakan</p>
+        </div>
+        <div class="projects-grid" id="projects-grid"><div class="project-card reveal" style="transition-delay: 0s;">
+                <div class="project-thumb">🤖<span class="project-badge">AI/ML</span></div>
+                <div class="project-body">
+                    <h3 class="project-title">Chatbot Customer Service</h3>
+                    <p class="project-desc">Chatbot untuk layanan pelanggan terintegrasi WhatsApp Business API dengan dashboard analitik.</p>
+                    <div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">MySQL</span></div>
+                    <div class="project-links">
+                        <a href="http://localhost/portfolio/#" class="project-link demo" target="_blank">🔗 Live Demo</a>
+                        <a href="http://localhost/portfolio/#" class="project-link github" target="_blank">🐙 GitHub</a>
+                    </div>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editProyek({&quot;id&quot;:6,&quot;judul&quot;:&quot;Chatbot Customer Service&quot;,&quot;deskripsi&quot;:&quot;Chatbot untuk layanan pelanggan terintegrasi WhatsApp Business API dengan dashboard analitik.&quot;,&quot;teknologi&quot;:&quot;Python, FastAPI, MySQL&quot;,&quot;link_demo&quot;:&quot;#&quot;,&quot;link_github&quot;:&quot;#&quot;,&quot;gambar&quot;:null,&quot;kategori&quot;:&quot;AI/ML&quot;,&quot;featured&quot;:0,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deleteProyek(6,&quot;Chatbot Customer Service&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div></div><div class="project-card reveal" style="transition-delay: 0.07s;">
+                <div class="project-thumb">⚙️<span class="project-badge">Backend</span></div>
+                <div class="project-body">
+                    <h3 class="project-title">REST API Inventory</h3>
+                    <p class="project-desc">RESTful API untuk sistem manajemen inventori gudang dengan autentikasi JWT dan dokumentasi Swagger.</p>
+                    <div class="project-tech"><span class="tech-tag">Node.js</span><span class="tech-tag">Express</span><span class="tech-tag">MongoDB</span></div>
+                    <div class="project-links">
+                        <a href="http://localhost/portfolio/#" class="project-link demo" target="_blank">🔗 Live Demo</a>
+                        <a href="http://localhost/portfolio/#" class="project-link github" target="_blank">🐙 GitHub</a>
+                    </div>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editProyek({&quot;id&quot;:5,&quot;judul&quot;:&quot;REST API Inventory&quot;,&quot;deskripsi&quot;:&quot;RESTful API untuk sistem manajemen inventori gudang dengan autentikasi JWT dan dokumentasi Swagger.&quot;,&quot;teknologi&quot;:&quot;Node.js, Express, MongoDB&quot;,&quot;link_demo&quot;:&quot;#&quot;,&quot;link_github&quot;:&quot;#&quot;,&quot;gambar&quot;:null,&quot;kategori&quot;:&quot;Backend&quot;,&quot;featured&quot;:0,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deleteProyek(5,&quot;REST API Inventory&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div></div><div class="project-card reveal" style="transition-delay: 0.14s;">
+                <div class="project-thumb">🎨<span class="project-badge">UI/UX</span></div>
+                <div class="project-body">
+                    <h3 class="project-title">Mobile Banking UI</h3>
+                    <p class="project-desc">Desain antarmuka aplikasi mobile banking modern dengan dark mode dan alur UX yang intuitif.</p>
+                    <div class="project-tech"><span class="tech-tag">Figma</span><span class="tech-tag">Prototyping</span></div>
+                    <div class="project-links">
+                        <a href="http://localhost/portfolio/#" class="project-link demo" target="_blank">🔗 Live Demo</a>
+                        <a href="http://localhost/portfolio/#" class="project-link github" target="_blank">🐙 GitHub</a>
+                    </div>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editProyek({&quot;id&quot;:4,&quot;judul&quot;:&quot;Mobile Banking UI&quot;,&quot;deskripsi&quot;:&quot;Desain antarmuka aplikasi mobile banking modern dengan dark mode dan alur UX yang intuitif.&quot;,&quot;teknologi&quot;:&quot;Figma, Prototyping&quot;,&quot;link_demo&quot;:&quot;#&quot;,&quot;link_github&quot;:&quot;#&quot;,&quot;gambar&quot;:null,&quot;kategori&quot;:&quot;UI/UX&quot;,&quot;featured&quot;:0,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deleteProyek(4,&quot;Mobile Banking UI&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div></div><div class="project-card reveal" style="transition-delay: 0.21s;">
+                <div class="project-thumb">☁️<span class="project-badge">SaaS</span></div>
+                <div class="project-body">
+                    <h3 class="project-title">Portfolio Generator</h3>
+                    <p class="project-desc">Tool berbasis AI untuk generate portofolio profesional dari data LinkedIn dan GitHub secara otomatis.</p>
+                    <div class="project-tech"><span class="tech-tag">React.js</span><span class="tech-tag">Node.js</span><span class="tech-tag">OpenAI API</span></div>
+                    <div class="project-links">
+                        <a href="http://localhost/portfolio/#" class="project-link demo" target="_blank">🔗 Live Demo</a>
+                        <a href="http://localhost/portfolio/#" class="project-link github" target="_blank">🐙 GitHub</a>
+                    </div>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editProyek({&quot;id&quot;:3,&quot;judul&quot;:&quot;Portfolio Generator&quot;,&quot;deskripsi&quot;:&quot;Tool berbasis AI untuk generate portofolio profesional dari data LinkedIn dan GitHub secara otomatis.&quot;,&quot;teknologi&quot;:&quot;React.js, Node.js, OpenAI API&quot;,&quot;link_demo&quot;:&quot;#&quot;,&quot;link_github&quot;:&quot;#&quot;,&quot;gambar&quot;:null,&quot;kategori&quot;:&quot;SaaS&quot;,&quot;featured&quot;:1,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deleteProyek(3,&quot;Portfolio Generator&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div></div><div class="project-card reveal" style="transition-delay: 0.28s;">
+                <div class="project-thumb">🌐<span class="project-badge">Web App</span></div>
+                <div class="project-body">
+                    <h3 class="project-title">Sistem Manajemen Sekolah</h3>
+                    <p class="project-desc">Aplikasi manajemen sekolah mencakup absensi digital, nilai siswa, laporan guru, dan komunikasi orang tua.</p>
+                    <div class="project-tech"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span><span class="tech-tag">Bootstrap</span><span class="tech-tag">jQuery</span></div>
+                    <div class="project-links">
+                        <a href="http://localhost/portfolio/#" class="project-link demo" target="_blank">🔗 Live Demo</a>
+                        <a href="http://localhost/portfolio/#" class="project-link github" target="_blank">🐙 GitHub</a>
+                    </div>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editProyek({&quot;id&quot;:2,&quot;judul&quot;:&quot;Sistem Manajemen Sekolah&quot;,&quot;deskripsi&quot;:&quot;Aplikasi manajemen sekolah mencakup absensi digital, nilai siswa, laporan guru, dan komunikasi orang tua.&quot;,&quot;teknologi&quot;:&quot;PHP, MySQL, Bootstrap, jQuery&quot;,&quot;link_demo&quot;:&quot;#&quot;,&quot;link_github&quot;:&quot;#&quot;,&quot;gambar&quot;:null,&quot;kategori&quot;:&quot;Web App&quot;,&quot;featured&quot;:1,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deleteProyek(2,&quot;Sistem Manajemen Sekolah&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div></div><div class="project-card reveal" style="transition-delay: 0.35s;">
+                <div class="project-thumb">🌐<span class="project-badge">Web App</span></div>
+                <div class="project-body">
+                    <h3 class="project-title">E-Commerce Platform</h3>
+                    <p class="project-desc">Platform belanja online lengkap dengan fitur cart, payment gateway Midtrans, manajemen produk, dan dashboard admin real-time.</p>
+                    <div class="project-tech"><span class="tech-tag">PHP</span><span class="tech-tag">Laravel</span><span class="tech-tag">MySQL</span><span class="tech-tag">Vue.js</span><span class="tech-tag">Tailwind</span></div>
+                    <div class="project-links">
+                        <a href="http://localhost/portfolio/#" class="project-link demo" target="_blank">🔗 Live Demo</a>
+                        <a href="http://localhost/portfolio/#" class="project-link github" target="_blank">🐙 GitHub</a>
+                    </div>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editProyek({&quot;id&quot;:1,&quot;judul&quot;:&quot;E-Commerce Platform&quot;,&quot;deskripsi&quot;:&quot;Platform belanja online lengkap dengan fitur cart, payment gateway Midtrans, manajemen produk, dan dashboard admin real-time.&quot;,&quot;teknologi&quot;:&quot;PHP, Laravel, MySQL, Vue.js, Tailwind&quot;,&quot;link_demo&quot;:&quot;#&quot;,&quot;link_github&quot;:&quot;#&quot;,&quot;gambar&quot;:null,&quot;kategori&quot;:&quot;Web App&quot;,&quot;featured&quot;:1,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deleteProyek(1,&quot;E-Commerce Platform&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div></div></div>
+    </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====================================================
+     PENGALAMAN
+===================================================== -->
+<section id="experience">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <span class="section-tag">Perjalanan</span>
+            <h2 class="section-title">Karir &amp; <em>Pendidikan</em></h2>
+            <p class="section-desc">Rekam jejak profesional dan akademik</p>
+        </div>
+        <div class="timeline" id="timeline"><div class="timeline-item reveal" style="transition-delay: 0s;">
+                <div class="timeline-content">
+                    <h3>S1 Teknik Informatika</h3>
+                    <h4>Universitas Bumigora</h4>
+                    <p>Lulus IPK 3.78, aktif UKM Programming Club, juara 1 Networking Nasional 2019.</p>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editPengalaman({&quot;id&quot;:4,&quot;posisi&quot;:&quot;S1 Teknik Informatika&quot;,&quot;perusahaan&quot;:&quot;Universitas Bumigora&quot;,&quot;periode_mulai&quot;:&quot;2024&quot;,&quot;periode_selesai&quot;:&quot;2028&quot;,&quot;deskripsi&quot;:&quot;Lulus IPK 3.78, aktif UKM Programming Club, juara 1 Networking Nasional 2019.&quot;,&quot;tipe&quot;:&quot;pendidikan&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deletePengalaman(4,&quot;S1 Teknik Informatika&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-side">
+                    <span class="timeline-period">2024 – 2028</span><br>
+                    <span class="timeline-type pendidikan">🎓 Pendidikan</span>
+                </div></div><div class="timeline-item reveal" style="transition-delay: 0.1s;">
+                <div class="timeline-content">
+                    <h3>Web Developer Intern</h3>
+                    <h4>Startup Inovatif ID</h4>
+                    <p>Mengembangkan fitur pada platform edukasi online menggunakan Laravel dan Vue.js dalam tim agile.</p>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editPengalaman({&quot;id&quot;:3,&quot;posisi&quot;:&quot;Web Developer Intern&quot;,&quot;perusahaan&quot;:&quot;Startup Inovatif ID&quot;,&quot;periode_mulai&quot;:&quot;2019&quot;,&quot;periode_selesai&quot;:&quot;2020&quot;,&quot;deskripsi&quot;:&quot;Mengembangkan fitur pada platform edukasi online menggunakan Laravel dan Vue.js dalam tim agile.&quot;,&quot;tipe&quot;:&quot;kerja&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deletePengalaman(3,&quot;Web Developer Intern&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-side">
+                    <span class="timeline-period">2019 – 2020</span><br>
+                    <span class="timeline-type kerja">💼 Karir</span>
+                </div></div><div class="timeline-item reveal" style="transition-delay: 0.2s;">
+                <div class="timeline-content">
+                    <h3>Frontend Developer</h3>
+                    <h4>CV. Digital Kreatif</h4>
+                    <p>Membangun antarmuka responsif untuk klien e-commerce dan meningkatkan kecepatan loading 60%.</p>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editPengalaman({&quot;id&quot;:2,&quot;posisi&quot;:&quot;Frontend Developer&quot;,&quot;perusahaan&quot;:&quot;CV. Digital Kreatif&quot;,&quot;periode_mulai&quot;:&quot;2020&quot;,&quot;periode_selesai&quot;:&quot;2022&quot;,&quot;deskripsi&quot;:&quot;Membangun antarmuka responsif untuk klien e-commerce dan meningkatkan kecepatan loading 60%.&quot;,&quot;tipe&quot;:&quot;kerja&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deletePengalaman(2,&quot;Frontend Developer&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-side">
+                    <span class="timeline-period">2020 – 2022</span><br>
+                    <span class="timeline-type kerja">💼 Karir</span>
+                </div></div><div class="timeline-item reveal" style="transition-delay: 0.3s;">
+                <div class="timeline-content">
+                    <h3>Full Stack Developer</h3>
+                    <h4>PT. Teknologi Nusantara</h4>
+                    <p>Memimpin pengembangan 3 produk SaaS, meningkatkan performa 40%, dan mentoring 5 developer junior.</p>
+                    <div class="admin-actions-inline">
+                        <button class="inline-btn edit-btn" onclick="editPengalaman({&quot;id&quot;:1,&quot;posisi&quot;:&quot;Full Stack Developer&quot;,&quot;perusahaan&quot;:&quot;PT. Teknologi Nusantara&quot;,&quot;periode_mulai&quot;:&quot;2022&quot;,&quot;periode_selesai&quot;:&quot;Sekarang&quot;,&quot;deskripsi&quot;:&quot;Memimpin pengembangan 3 produk SaaS, meningkatkan performa 40%, dan mentoring 5 developer junior.&quot;,&quot;tipe&quot;:&quot;kerja&quot;})">✏️ Edit</button>
+                        <button class="inline-btn del-btn" onclick="deletePengalaman(1,&quot;Full Stack Developer&quot;)">🗑️ Hapus</button>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-side">
+                    <span class="timeline-period">2022 – Sekarang</span><br>
+                    <span class="timeline-type kerja">💼 Karir</span>
+                </div></div></div>
+    </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====================================================
+     KEGIATAN
+===================================================== -->
+<section id="kegiatan" class="projects">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <span class="section-tag">Aktivitas</span>
+            <h2 class="section-title">Kegiatan &amp; <em>Pencapaian</em></h2>
+            <p class="section-desc">Workshop, sertifikasi, kompetisi, dan kegiatan lainnya</p>
+        </div>
+        <div class="kegiatan-grid" id="kegiatan-grid"><div class="kegiatan-card reveal" style="transition-delay: 0s;">
+                <div class="kegiatan-kat">🛠️ Workshop</div>
+                <h3 class="kegiatan-judul">Workshop Laravel &amp; Vue.js</h3>
+                <p class="kegiatan-desc">Workshop intensif pengembangan web modern dengan Laravel 10 dan Vue 3 selama 2 hari penuh.</p>
+                <div class="kegiatan-meta">
+                    <span>📅 15 Maret 2024</span>
+                    <span>📍 Mataram, NTB</span>
+                </div>
+                <div class="admin-actions-inline" style="margin-top:.8rem">
+                    <button class="inline-btn edit-btn" onclick="editKegiatan({&quot;id&quot;:1,&quot;judul&quot;:&quot;Workshop Laravel &amp; Vue.js&quot;,&quot;deskripsi&quot;:&quot;Workshop intensif pengembangan web modern dengan Laravel 10 dan Vue 3 selama 2 hari penuh.&quot;,&quot;kategori&quot;:&quot;Workshop&quot;,&quot;tanggal&quot;:&quot;2024-03-15&quot;,&quot;lokasi&quot;:&quot;Mataram, NTB&quot;,&quot;gambar_path&quot;:null,&quot;status&quot;:&quot;aktif&quot;,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;,&quot;updated_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteKegiatan(1,&quot;Workshop Laravel &amp; Vue.js&quot;)">🗑️ Hapus</button>
+                </div></div><div class="kegiatan-card reveal" style="transition-delay: 0.07s;">
+                <div class="kegiatan-kat">🏆 Kompetisi</div>
+                <h3 class="kegiatan-judul">Hackathon Nasional 2024</h3>
+                <p class="kegiatan-desc">Berpartisipasi sebagai team leader. Tim berhasil masuk final 10 besar nasional.</p>
+                <div class="kegiatan-meta">
+                    <span>📅 20 Februari 2024</span>
+                    <span>📍 Jakarta</span>
+                </div>
+                <div class="admin-actions-inline" style="margin-top:.8rem">
+                    <button class="inline-btn edit-btn" onclick="editKegiatan({&quot;id&quot;:2,&quot;judul&quot;:&quot;Hackathon Nasional 2024&quot;,&quot;deskripsi&quot;:&quot;Berpartisipasi sebagai team leader. Tim berhasil masuk final 10 besar nasional.&quot;,&quot;kategori&quot;:&quot;Kompetisi&quot;,&quot;tanggal&quot;:&quot;2024-02-20&quot;,&quot;lokasi&quot;:&quot;Jakarta&quot;,&quot;gambar_path&quot;:null,&quot;status&quot;:&quot;aktif&quot;,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;,&quot;updated_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteKegiatan(2,&quot;Hackathon Nasional 2024&quot;)">🗑️ Hapus</button>
+                </div></div><div class="kegiatan-card reveal" style="transition-delay: 0.14s;">
+                <div class="kegiatan-kat">📜 Sertifikasi</div>
+                <h3 class="kegiatan-judul">Sertifikasi AWS Cloud Practitioner</h3>
+                <p class="kegiatan-desc">Berhasil meraih sertifikasi AWS setelah 3 bulan persiapan belajar mandiri.</p>
+                <div class="kegiatan-meta">
+                    <span>📅 10 Januari 2024</span>
+                    <span>📍 Online</span>
+                </div>
+                <div class="admin-actions-inline" style="margin-top:.8rem">
+                    <button class="inline-btn edit-btn" onclick="editKegiatan({&quot;id&quot;:3,&quot;judul&quot;:&quot;Sertifikasi AWS Cloud Practitioner&quot;,&quot;deskripsi&quot;:&quot;Berhasil meraih sertifikasi AWS setelah 3 bulan persiapan belajar mandiri.&quot;,&quot;kategori&quot;:&quot;Sertifikasi&quot;,&quot;tanggal&quot;:&quot;2024-01-10&quot;,&quot;lokasi&quot;:&quot;Online&quot;,&quot;gambar_path&quot;:null,&quot;status&quot;:&quot;aktif&quot;,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;,&quot;updated_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteKegiatan(3,&quot;Sertifikasi AWS Cloud Practitioner&quot;)">🗑️ Hapus</button>
+                </div></div><div class="kegiatan-card reveal" style="transition-delay: 0.21s;">
+                <div class="kegiatan-kat">👨‍🏫 Mentoring</div>
+                <h3 class="kegiatan-judul">Mentoring Junior Developer</h3>
+                <p class="kegiatan-desc">Membimbing 5 junior developer selama 3 bulan, fokus pada PHP dan JavaScript.</p>
+                <div class="kegiatan-meta">
+                    <span>📅 1 Desember 2023</span>
+                    <span>📍 Remote</span>
+                </div>
+                <div class="admin-actions-inline" style="margin-top:.8rem">
+                    <button class="inline-btn edit-btn" onclick="editKegiatan({&quot;id&quot;:4,&quot;judul&quot;:&quot;Mentoring Junior Developer&quot;,&quot;deskripsi&quot;:&quot;Membimbing 5 junior developer selama 3 bulan, fokus pada PHP dan JavaScript.&quot;,&quot;kategori&quot;:&quot;Mentoring&quot;,&quot;tanggal&quot;:&quot;2023-12-01&quot;,&quot;lokasi&quot;:&quot;Remote&quot;,&quot;gambar_path&quot;:null,&quot;status&quot;:&quot;aktif&quot;,&quot;created_at&quot;:&quot;2026-09-27 13:41:59&quot;,&quot;updated_at&quot;:&quot;2026-09-27 13:41:59&quot;})">✏️ Edit</button>
+                    <button class="inline-btn del-btn" onclick="deleteKegiatan(4,&quot;Mentoring Junior Developer&quot;)">🗑️ Hapus</button>
+                </div></div></div>
+    </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====================================================
+     CONTACT
+===================================================== -->
+<section id="contact" class="contact">
+    <div class="section-wrap">
+        <div class="section-header reveal">
+            <span class="section-tag">Kontak</span>
+            <h2 class="section-title">Mari <em>Berkolaborasi</em></h2>
+            <p class="section-desc">Punya proyek menarik? Saya selalu terbuka untuk diskusi</p>
+        </div>
+        <div class="contact-grid">
+            <div class="reveal">
+                <h3 class="contact-info-title">Hubungi Saya</h3>
+                <p class="contact-info-desc">Saya terbuka untuk proyek freelance, kolaborasi, maupun posisi full-time.</p>
+                <div class="contact-item"><div class="contact-icon">📧</div><div><span class="contact-item-label">Email</span><span class="contact-item-val" id="info-email-2">ahmad.rizky@email.com</span></div></div>
+                <div class="contact-item"><div class="contact-icon">📱</div><div><span class="contact-item-label">WhatsApp</span><span class="contact-item-val" id="info-phone-2">+62 812-3456-7890</span></div></div>
+                <div class="contact-item"><div class="contact-icon">📍</div><div><span class="contact-item-label">Lokasi</span><span class="contact-item-val" id="info-lokasi-2">Mataram, NTB, Indonesia</span></div></div>
+            </div>
+            <div class="reveal">
+                <form id="contact-form" class="contact-form" novalidate="">
+                    <div id="form-status" class="form-status"></div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Nama Lengkap *</label><input type="text" name="nama" placeholder="John Doe" required=""></div>
+                        <div class="form-group"><label>Email *</label><input type="email" name="email" placeholder="john@email.com" required=""></div>
+                    </div>
+                    <div class="form-group"><label>Subjek</label><input type="text" name="subjek" placeholder="Diskusi Proyek..."></div>
+                    <div class="form-group"><label>Pesan *</label><textarea name="pesan" placeholder="Halo, saya ingin mendiskusikan..." required=""></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;border-radius:var(--r-sm)">🚀 Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====================================================
+     FOOTER
+===================================================== -->
+<footer>
+    <div class="footer-socials">
+        <a href="https://github.com/ahmadrizky" class="footer-social link-github" title="GitHub">🐙</a>
+        <a href="https://linkedin.com/in/ahmadrizky" class="footer-social link-linkedin" title="LinkedIn">💼</a>
+        <a href="http://localhost/portfolio/#" class="footer-social" title="Twitter">🐦</a>
+        <a href="http://localhost/portfolio/#" class="footer-social" title="Instagram">📸</a>
+    </div>
+    <p>© 2026 <strong id="footer-name">M.Fathirman</strong> — PHP + MySQL (Laragon)</p>
+</footer>
+
+<!-- ====================================================
+     AUTH OVERLAY (Login + Register)
+===================================================== -->
+<div id="auth-overlay" class="auth-overlay">
+    <div class="auth-box">
+        <button id="auth-close" class="auth-close" title="Tutup">✕</button>
+        <div class="auth-logo">MF.</div>
+        <p class="auth-subtitle">Panel Admin Portofolio</p>
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">🔐 Masuk</button>
+            <button class="auth-tab" data-tab="register">📝 Daftar</button>
+        </div>
+
+        <!-- LOGIN PANEL -->
+        <div id="login-panel" class="auth-panel active">
+            <form id="login-form" novalidate="">
+                <div class="auth-input-group">
+                    <label>Username / Email</label>
+                    <div class="auth-input-wrap">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="login-username" placeholder="admin atau email@kamu.com" autocomplete="username">
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label>Password</label>
+                    <div class="auth-input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="login-password" placeholder="Masukkan password" autocomplete="current-password">
+                        <button type="button" class="auth-toggle-pw">👁️</button>
+                    </div>
+                </div>
+                <div id="login-status" class="auth-status"></div>
+                <button type="submit" class="auth-btn">Masuk ke Panel Admin</button>
+            </form>
+            <p style="text-align:center;margin-top:1rem;font-size:.8rem;color:var(--muted)">
+                Default: <code style="color:var(--accent)">admin</code> / <code style="color:var(--accent)">password</code>
+            </p>
+        </div>
+
+        <!-- REGISTER PANEL -->
+        <div id="register-panel" class="auth-panel">
+            <form id="register-form" novalidate="">
+                <div class="auth-input-group">
+                    <label>Nama Lengkap</label>
+                    <div class="auth-input-wrap">
+                        <span class="input-icon">✍️</span>
+                        <input type="text" id="reg-nama" placeholder="Nama Lengkap Anda">
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label>Username</label>
+                    <div class="auth-input-wrap">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="reg-username" placeholder="username_unik">
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label>Email</label>
+                    <div class="auth-input-wrap">
+                        <span class="input-icon">📧</span>
+                        <input type="email" id="reg-email" placeholder="email@kamu.com">
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label>Password</label>
+                    <div class="auth-input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="reg-password" placeholder="Min. 6 karakter">
+                        <button type="button" class="auth-toggle-pw">👁️</button>
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label>Konfirmasi Password</label>
+                    <div class="auth-input-wrap">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="reg-password2" placeholder="Ulangi password">
+                        <button type="button" class="auth-toggle-pw">👁️</button>
+                    </div>
+                </div>
+                <div id="register-status" class="auth-status"></div>
+                <button type="submit" class="auth-btn">Buat Akun Admin</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ====================================================
+     MODAL — SKILL
+===================================================== -->
+<div id="modal-skill" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-skill-title">➕ Tambah Skill</h2>
+            <button class="modal-close">✕</button>
+        </div>
+        <div id="modal-skill-status" class="modal-status"></div>
+        <form id="skill-form" class="modal-form" novalidate="">
+            <div class="form-group">
+                <label>Nama Skill *</label>
+                <input type="text" id="skill-nama" placeholder="cth: React.js, Laravel, MySQL...">
+            </div>
+            <div class="row2">
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="skill-kategori">
+                        <option value="frontend">Frontend</option>
+                        <option value="backend">Backend</option>
+                        <option value="database">Database</option>
+                        <option value="tools">Tools</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Warna</label>
+                    <input type="color" id="skill-warna" value="#6366f1">
+                    <div class="color-swatches"><div class="swatch" title="#6366f1" style="background: rgb(99, 102, 241);"></div><div class="swatch" title="#a855f7" style="background: rgb(168, 85, 247);"></div><div class="swatch" title="#06b6d4" style="background: rgb(6, 182, 212);"></div><div class="swatch" title="#10b981" style="background: rgb(16, 185, 129);"></div><div class="swatch" title="#f59e0b" style="background: rgb(245, 158, 11);"></div><div class="swatch" title="#ef4444" style="background: rgb(239, 68, 68);"></div><div class="swatch" title="#e34c26" style="background: rgb(227, 76, 38);"></div><div class="swatch" title="#f7df1e" style="background: rgb(247, 223, 30);"></div><div class="swatch" title="#61dafb" style="background: rgb(97, 218, 251);"></div><div class="swatch" title="#339933" style="background: rgb(51, 153, 51);"></div><div class="swatch" title="#4479a1" style="background: rgb(68, 121, 161);"></div><div class="swatch" title="#ff2d20" style="background: rgb(255, 45, 32);"></div></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Level Keahlian: <span id="skill-level-val" class="range-val">80%</span></label>
+                <input type="range" id="skill-level" min="0" max="100" value="80" oninput="document.getElementById('skill-level-val').textContent=this.value+'%'">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn cancel modal-cancel">Batal</button>
+                <button type="submit" class="modal-btn save">💾 Simpan Skill</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ====================================================
+     MODAL — PROYEK
+===================================================== -->
+<div id="modal-proyek" class="modal-overlay">
+    <div class="modal-box wide">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-proyek-title">➕ Tambah Proyek</h2>
+            <button class="modal-close">✕</button>
+        </div>
+        <div id="modal-proyek-status" class="modal-status"></div>
+        <form id="proyek-form" class="modal-form" novalidate="">
+            <div class="form-group">
+                <label>Judul Proyek *</label>
+                <input type="text" id="p-judul" placeholder="Nama proyek Anda">
+            </div>
+            <div class="form-group">
+                <label>Deskripsi</label>
+                <textarea id="p-deskripsi" placeholder="Jelaskan proyek ini secara singkat..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Teknologi (pisahkan dengan koma)</label>
+                <input type="text" id="p-teknologi" placeholder="PHP, Laravel, MySQL, Vue.js">
+            </div>
+            <div class="row2">
+                <div class="form-group">
+                    <label>Link Demo</label>
+                    <input type="url" id="p-demo" placeholder="https://demo.com">
+                </div>
+                <div class="form-group">
+                    <label>Link GitHub</label>
+                    <input type="url" id="p-github" placeholder="https://github.com/...">
+                </div>
+            </div>
+            <div class="row2">
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="p-kategori">
+                        <option>Web App</option><option>SaaS</option>
+                        <option>UI/UX</option><option>Backend</option>
+                        <option>AI/ML</option><option>Mobile</option>
+                    </select>
+                </div>
+                <div class="form-group" style="display:flex;align-items:center;gap:.5rem;padding-top:1.5rem">
+                    <input type="checkbox" id="p-featured" style="width:auto;accent-color:var(--accent)">
+                    <label for="p-featured" style="margin:0;cursor:pointer">⭐ Featured (tampilkan utama)</label>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn cancel modal-cancel">Batal</button>
+                <button type="submit" class="modal-btn save">💾 Simpan Proyek</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ====================================================
+     MODAL — KEGIATAN
+===================================================== -->
+<div id="modal-kegiatan" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-kegiatan-title">➕ Tambah Kegiatan</h2>
+            <button class="modal-close">✕</button>
+        </div>
+        <div id="modal-kegiatan-status" class="modal-status"></div>
+        <form id="kegiatan-form" class="modal-form" novalidate="">
+            <div class="form-group">
+                <label>Judul Kegiatan *</label>
+                <input type="text" id="k-judul" placeholder="cth: Workshop Laravel, Hackathon Nasional...">
+            </div>
+            <div class="form-group">
+                <label>Deskripsi</label>
+                <textarea id="k-deskripsi" placeholder="Ceritakan tentang kegiatan ini..."></textarea>
+            </div>
+            <div class="row2">
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <input type="text" id="k-kategori" placeholder="Workshop / Kompetisi / Sertifikasi..." list="kat-list">
+                    <datalist id="kat-list">
+                        <option value="Workshop"></option><option value="Kompetisi">
+                        </option><option value="Sertifikasi"></option><option value="Mentoring">
+                        </option><option value="Konferensi"></option><option value="Volunteer">
+                        </option><option value="Umum">
+                    </option></datalist>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <input type="date" id="k-tanggal">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Lokasi</label>
+                <input type="text" id="k-lokasi" placeholder="Jakarta / Online / Mataram, NTB">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn cancel modal-cancel">Batal</button>
+                <button type="submit" class="modal-btn save">💾 Simpan Kegiatan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ====================================================
+     MODAL — PENGALAMAN
+===================================================== -->
+<div id="modal-pengalaman" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-pengalaman-title">➕ Tambah Pengalaman</h2>
+            <button class="modal-close">✕</button>
+        </div>
+        <div id="modal-pengalaman-status" class="modal-status"></div>
+        <form id="pengalaman-form" class="modal-form" novalidate="">
+            <div class="form-group">
+                <label>Posisi / Jabatan *</label>
+                <input type="text" id="pe-posisi" placeholder="Full Stack Developer, UI/UX Designer...">
+            </div>
+            <div class="form-group">
+                <label>Perusahaan / Institusi *</label>
+                <input type="text" id="pe-perusahaan" placeholder="PT. Contoh Teknologi / Universitas...">
+            </div>
+            <div class="row2">
+                <div class="form-group">
+                    <label>Mulai</label>
+                    <input type="text" id="pe-mulai" placeholder="2022">
+                </div>
+                <div class="form-group">
+                    <label>Selesai</label>
+                    <input type="text" id="pe-selesai" placeholder="Sekarang">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Tipe</label>
+                <select id="pe-tipe">
+                    <option value="kerja">💼 Karir / Pekerjaan</option>
+                    <option value="pendidikan">🎓 Pendidikan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Deskripsi</label>
+                <textarea id="pe-deskripsi" placeholder="Ceritakan pengalaman dan pencapaian Anda..."></textarea>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn cancel modal-cancel">Batal</button>
+                <button type="submit" class="modal-btn save">💾 Simpan Pengalaman</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="./Portfolio — M.Fathirman_files/main.js.download"></script>
+<script src="./Portfolio — M.Fathirman_files/admin.js.download"></script>
+
+
+</body></html>
